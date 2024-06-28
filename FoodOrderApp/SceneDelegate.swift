@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
                 window = UIWindow(windowScene: windowScene)
                 if UserDefaults().bool(forKey: "userRegistered") {
-                    let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabNav") as! UITabBarController
+                    let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBarController") as! UITabBarController
                     window?.rootViewController = UINavigationController(rootViewController: controller)
                     window?.makeKeyAndVisible()
                 } else {

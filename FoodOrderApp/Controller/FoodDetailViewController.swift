@@ -8,22 +8,53 @@
 import UIKit
 
 class FoodDetailViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-       
-    }
     
+    @IBOutlet weak var foodImageView: UIImageView!
+    @IBOutlet weak var foodNameLabel: UILabel!
+    @IBOutlet weak var quantityLabel: UILabel!
+    @IBOutlet weak var foodPriceLabel: UILabel!
+    @IBOutlet weak var addToCartButton: UIButton!
+    @IBOutlet weak var totalLabel: UILabel!
+    
+    var food: Food?
+    var quantity: Int = 1
+    var price: Double = 0.0
+    
+    override func viewDidLoad() {
+            super.viewDidLoad()
+            updateUI()
+        }
 
-    /*
-    // MARK: - Navigation
+        func updateUI() {
+            guard let food = food else { return }
+            foodImageView.image = UIImage(named: food.image)
+            foodNameLabel.text = food.name
+            foodPriceLabel.text = String(format: "$%.2f", food.price)
+            quantityLabel.text = "\(quantity)"
+            totalLabel.text = String(format: "Tutar: $%.2f", food.price * Double(quantity))
+        }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        @IBAction func incrementQuantity(_ sender: UIButton) {
+            quantity += 1
+            updateUI()
+        }
+    
+        @IBAction func decrementQuantity(_ sender: UIButton) {
+            if quantity > 1 {
+                quantity -= 1
+                updateUI()
+            }
+        }
+
+        @IBAction func addToBasket(_ sender: UIButton) {
+            guard let food = food else { return }
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.basketItems.append(food)
+            
+            // Tab bar'daki BasketViewController'a geçiş yapma
+            if let tabBarController = self.tabBarController {
+                tabBarController.selectedIndex = 1
+            }
+        }
     }
-    */
-
-}

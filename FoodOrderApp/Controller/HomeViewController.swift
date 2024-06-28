@@ -11,8 +11,9 @@ import Kingfisher
 class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     @IBOutlet weak var collection: UICollectionView!
-    
     @IBOutlet weak var searchBar: UISearchBar!
+    
+    
     var restaurantList = [Restaurant]()
     var filterRestaurant = [Restaurant]()
     var restaurants: [Restaurant] = []
@@ -38,6 +39,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     let jsonData = try decoder.decode([String: [Restaurant]].self, from: data)
                     if let restaurants = jsonData["restaurants"] {
                         self.restaurants = restaurants
+                        self.filterRestaurant = restaurants
                     }
                 } catch {
                     print("Error: \(error)")
@@ -46,23 +48,23 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return restaurants.count
-    }
+        return filterRestaurant.count    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RestaurantCell", for: indexPath) as! RestaurantCell
-                let restaurant = restaurants[indexPath.row]
+        let restaurant = filterRestaurant[indexPath.row]
         
-        print("Restaurant is \(restaurants)")
-                cell.imageView.image = UIImage(named: restaurant.image)
+       cell.imageView.image = UIImage(named: restaurant.image)
+//                cell.nameLabel.text = restaurant.name
+//        cell.imageView.kf.setImage(with: URL(string: restaurant.image))
                 cell.nameLabel.text = restaurant.name
-                
+        
                 return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-         let restaurant = restaurants[indexPath.row]
+        let restaurant = filterRestaurant[indexPath.row]
         let foodCollectionViewController =  storyboard?.instantiateViewController(withIdentifier: "FoodViewController") as! FoodViewController
-        foodCollectionViewController.filterFood = restaurant.foods
+        foodCollectionViewController.foodList = restaurant.foods
         navigationController?.show(foodCollectionViewController, sender: nil)
            }
     }
@@ -70,16 +72,19 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
 extension HomeViewController : UISearchBarDelegate
 {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.filterRestaurant = self.restaurantList.filter { f in
-            if f.name.lowercased().contains(searchText.lowercased()) {
-                return true
-            }
-            if searchText.isEmpty {
-                return true
-            }
-            return false
-        }
-        self.collection.reloadData()
-    }
-}
-
+//        self.filterRestaurant = self.restaurantList.filter { f in
+//            if f.name.lowercased().contains(searchText.lowercased()) {
+//                return true
+//            }
+//            if searchText.isEmpty {
+//                return true
+//            }
+//            return false
+//        }
+//        self.collection.reloadData()
+//    }
+//}
+        filterRestaurant = searchText.isEmpty ? restaurantList : restaurantList.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+         collection.reloadData()
+     }
+ }

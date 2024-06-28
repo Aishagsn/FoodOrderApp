@@ -16,11 +16,11 @@ class FoodViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var foodList = [Foods]()
+    var foodList = [Food]()
     var filterFood = [Food]()
     let dataLoader = DataLoader()
     var restaurants: [Restaurant] = []
-    
+    var basketItems: [Food] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +39,8 @@ class FoodViewController: UIViewController, UICollectionViewDelegate, UICollecti
         foodDesign.itemSize = CGSize(width: cellWidht, height: cellWidht*1.1)
         foodCollectionView.collectionViewLayout = foodDesign
         
-        filterFood = restaurants.flatMap { $0.foods } // Initially show all foods
+//        filterFood = restaurants.flatMap { $0.foods }
+        filterFood = foodList  // Initially show all foods
                
     }
     func load(){
@@ -47,34 +48,22 @@ class FoodViewController: UIViewController, UICollectionViewDelegate, UICollecti
             print("Failed to find restaurants.json file")
             return
         }
-            do {
-                
-//                let data = try Data(contentsOf: URL(fileURLWithPath: path))
-//                let decoder = JSONDecoder()
-//                let jsonData = try decoder.decode([String: [Food]].self, from: data)
-//                restaurants = try JSONDecoder().decode([Restaurant].self, from: data)
-//                if let foodList = jsonData["restaurants"] {
-//                    self.filterFood = foodList
-//                }\
-                let data = try Data(contentsOf: URL(fileURLWithPath: path))
-                          restaurants = try JSONDecoder().decode([Restaurant].self, from: data)
-                      
-            } catch {
-                print("Error: \(error)")
-                
-            }
+        do {
+            let data = try Data(contentsOf: URL(fileURLWithPath: path))
+            restaurants = try JSONDecoder().decode([Restaurant].self, from: data)
+            filterFood = restaurants.flatMap { $0.foods }
+            
+            self.foodCollectionView.reloadData()
+        } catch {
+            print("Error: \(error)")
+            
         }
+    }
+        
         
     
-        
-//        func numberOfSections(in collectionView: UICollectionView) -> Int {
-//
-//            return filterFood.count
-//        }
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//            let itemCount = restaurants[section].foods.count
-//                    print("Number of items in section \(section): \(itemCount)")
-//                    return itemCount
+
             return filterFood.count
         }
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -82,50 +71,74 @@ class FoodViewController: UIViewController, UICollectionViewDelegate, UICollecti
             let food = filterFood[indexPath.row]
                     cell.configure(with: food)
             
-            let items = restaurants[indexPath.row].foods[indexPath.row]
-            cell.foodNameLabel.text = items.name + "- \(items.price)"
-            
+            cell.foodNameLabel.text = food.name + " - \(food.price)"
             cell.imageView.image = UIImage(named: food.image)
-            cell.foodNameLabel.text = food.name
-            cell.foodPriceLabel.text = "\(food.price)"
-            cell.plusButton.tag = indexPath.section * 1000 + indexPath.row
-            cell.plusButton.addTarget(self, action: #selector(addItemToBasket(_:)), for: .touchUpInside)
+                   cell.plusButton.tag = indexPath.row
+                   cell.plusButton.addTarget(self, action: #selector(addItemToBasket(_:)), for: .touchUpInside)
+            cell.addTapped = { [weak self] in
+                        guard let self = self else { return }
+                        self.showFoodDetail(for: food)
+                    }
+            
+//            let items = restaurants[indexPath.row].foods[indexPath.row]
+//            cell.foodNameLabel.text = items.name + "- \(items.price)"
+//            
+//            cell.imageView.image = UIImage(named: food.image)
+//            cell.foodNameLabel.text = food.name
+//            cell.foodPriceLabel.text = "\(food.price)"
+//            cell.plusButton.tag = indexPath.section * 1000 + indexPath.row
+//            cell.plusButton.addTarget(self, action: #selector(addItemToBasket(_:)), for: .touchUpInside)
             
             return cell
 
         }
         
-        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            let filteredFood = filterFood[indexPath.row]
-            
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            let food = filterFood[indexPath.row]
+        }
+        
+        func showFoodDetail(for food: Food) {
+            let foodDetailVC = storyboard?.instantiateViewController(withIdentifier: "FoodDetailViewController") as! FoodDetailViewController
+            foodDetailVC.food = food
+            navigationController?.pushViewController(foodDetailVC, animated: true)
         }
         
     }
+
     
     extension FoodViewController : UISearchBarDelegate
     {
         func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-               // Perform filtering based on search text
-               if searchText.isEmpty {
-                   filterFood = restaurants.flatMap { $0.foods }
-               } else {
-                   filterFood = restaurants.flatMap { $0.foods.filter { $0.name.lowercased().contains(searchText.lowercased()) } }
-               }
-               foodCollectionView.reloadData()
+ 
+            filterFood = searchText.isEmpty ? foodList : foodList.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+                foodCollectionView.reloadData()
            }
         
         
+//        @objc func addItemToBasket(_ sender: UIButton) {
+////            let section = (sender as AnyObject).tag / 1000
+////            let row = (sender as AnyObject).tag % 1000
+////            let item = restaurants[section].foods[row]
+////            BasketManager.shared.addItem(item)
+////            print("Added \(item.name) to basket. Total price: \(BasketManager.shared.totalPrice())")
+////        }
+//            let food = filterFood[sender.tag]
+//                   BasketManager.shared.addItem(food)
+//                   print("Added \(food.name) to basket. Total price: \(BasketManager.shared.totalPrice())")
+//               }
         @objc func addItemToBasket(_ sender: UIButton) {
-//            let section = (sender as AnyObject).tag / 1000
-//            let row = (sender as AnyObject).tag % 1000
-//            let item = restaurants[section].foods[row]
-//            BasketManager.shared.addItem(item)
-//            print("Added \(item.name) to basket. Total price: \(BasketManager.shared.totalPrice())")
-//        }
             let food = filterFood[sender.tag]
-                   BasketManager.shared.addItem(food)
-                   print("Added \(food.name) to basket. Total price: \(BasketManager.shared.totalPrice())")
+                   basketItems.append(food)
+                   
+                   let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                   let tabBarVC = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as! UITabBarController
+                   
+                   if let basketVC = tabBarVC.viewControllers?.first(where: { $0 is BasketViewController }) as? BasketViewController {
+                       basketVC.basketItems = basketItems
+                   }
+                   
+                   tabBarVC.selectedIndex = 1 // Basket tab is at index 1
+                   navigationController?.pushViewController(tabBarVC, animated: true)
                }
-    }
-    
+           }
 

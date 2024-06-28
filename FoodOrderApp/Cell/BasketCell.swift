@@ -8,10 +8,14 @@
 import UIKit
 
 class BasketCell: UICollectionViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    
+    func configure(with food: Food) {
+        imageView.kf.setImage(with: URL(string: food.image))
+        nameLabel.text = food.name
+        priceLabel.text = "$\(food.price)"
     }
-
 }
+

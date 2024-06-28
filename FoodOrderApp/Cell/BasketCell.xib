@@ -16,14 +16,44 @@
                 <rect key="frame" x="0.0" y="0.0" width="213" height="135"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NPp-QW-p1y">
-                        <rect key="frame" x="7" y="20" width="99" height="95"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NPp-QW-p1y">
+                        <rect key="frame" x="7" y="14" width="99" height="107"/>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aZc-BR-hfr">
+                        <rect key="frame" x="140" y="20" width="42" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="42" id="HVX-2c-dvh"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2lR-IX-BK9">
+                        <rect key="frame" x="140" y="78" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="aZc-BR-hfr" firstAttribute="leading" secondItem="NPp-QW-p1y" secondAttribute="trailing" constant="34" id="9bm-3B-QRM"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="top" secondItem="aZc-BR-hfr" secondAttribute="top" constant="39" id="Pie-DQ-HrW"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="2lR-IX-BK9" secondAttribute="bottom" constant="2" id="YlV-Xf-Udj"/>
+                <constraint firstItem="2lR-IX-BK9" firstAttribute="leading" secondItem="NPp-QW-p1y" secondAttribute="trailing" constant="34" id="Zcx-wx-apv"/>
+                <constraint firstItem="NPp-QW-p1y" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="14" id="eqP-8Z-MnD"/>
+                <constraint firstItem="NPp-QW-p1y" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="7" id="hLn-Vl-ii8"/>
+                <constraint firstAttribute="bottom" secondItem="NPp-QW-p1y" secondAttribute="bottom" constant="14" id="kpE-IY-EmA"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="aZc-BR-hfr" secondAttribute="trailing" constant="31" id="uR1-a4-0tb"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="2lR-IX-BK9" secondAttribute="trailing" constant="31" id="uez-3U-2qA"/>
+            </constraints>
             <size key="customSize" width="213" height="135"/>
+            <connections>
+                <outlet property="imageView" destination="NPp-QW-p1y" id="EiO-a0-NKJ"/>
+                <outlet property="nameLabel" destination="aZc-BR-hfr" id="ru5-kS-iLk"/>
+                <outlet property="priceLabel" destination="2lR-IX-BK9" id="aH7-8s-Oxi"/>
+            </connections>
             <point key="canvasLocation" x="263.35877862595419" y="49.647887323943664"/>
         </collectionViewCell>
     </objects>

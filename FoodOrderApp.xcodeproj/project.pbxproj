@@ -32,6 +32,7 @@
 		29568D8B2C159C9F0065FF57 /* RestaurantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29568D892C159C9F0065FF57 /* RestaurantCell.swift */; };
 		29568D8C2C159C9F0065FF57 /* RestaurantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29568D8A2C159C9F0065FF57 /* RestaurantCell.xib */; };
 		29568D902C15A2870065FF57 /* Lists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29568D8F2C15A2870065FF57 /* Lists.swift */; };
+		295826472C2F3E47003073A9 /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295826462C2F3E47003073A9 /* BasketViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		29568D892C159C9F0065FF57 /* RestaurantCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantCell.swift; sourceTree = "<group>"; };
 		29568D8A2C159C9F0065FF57 /* RestaurantCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RestaurantCell.xib; sourceTree = "<group>"; };
 		29568D8F2C15A2870065FF57 /* Lists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lists.swift; sourceTree = "<group>"; };
+		295826462C2F3E47003073A9 /* BasketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 				29568D512C0B10660065FF57 /* HomeViewController.swift */,
 				29568D802C13453A0065FF57 /* FoodDetailViewController.swift */,
 				29568D7E2C13452E0065FF57 /* FoodViewController.swift */,
+				295826462C2F3E47003073A9 /* BasketViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				295826472C2F3E47003073A9 /* BasketViewController.swift in Sources */,
 				29568D882C159AF90065FF57 /*  Restaurant.swift in Sources */,
 				294CAF332C297E07008A2CE4 /* CartManager.swift in Sources */,
 				29568D4B2C0B0A1C0065FF57 /* LoginViewController.swift in Sources */,
