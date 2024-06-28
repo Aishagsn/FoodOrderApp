@@ -1,0 +1,53 @@
+{
+  "restaurants": [
+    {
+      "image": "mcdonalds.png",
+      "name": "McDonald's",
+      "foods": [
+        {
+          "image": "bigmac.png",
+          "name": "Big Mac",
+          "price": 5.99
+        },
+        {
+          "image": "fries.png",
+          "name": "Fries",
+          "price": 2.99
+        }
+      ]
+    },
+    {
+      "image": "pizzahut.png",
+      "name": "Pizza Hut",
+      "foods": [
+        {
+          "image": "pepperonipizza.png",
+          "name": "Pepperoni Pizza",
+          "price": 12.99
+        },
+        {
+          "image": "garlicbread.png",
+          "name": "Garlic Bread",
+          "price": 4.99
+        }
+      ]
+    },
+    {
+      "image": "sushiexpress.png",
+      "name": "Sushi Express",
+      "foods": [
+        {
+          "image": "sushi.png",
+          "name": "Sushi",
+          "price": 9.99
+        },
+        {
+          "image": "miso.png",
+          "name": "Miso Soup",
+          "price": 3.90
+        }
+      ]
+    }
+  ]
+}
+
